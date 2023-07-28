@@ -83,9 +83,6 @@ static char *colors[][ColCount] = {
 	[SchemeUrg]          = { urgfgcolor,       urgbgcolor,       urgbordercolor,       urgfloatcolor },
 };
 
-
-
-
 const char *spcmd1[] = { "alacritty", "--class", "spterm", "-T", "spterm", "-o", "window.dimensions.columns=140", "window.dimensions.lines=30", NULL };
 const char *spcmd2[] = { "alacritty", "--class", "spmusic", "-T", "spmusic", "--working-directory", "/home/donny/Music/", "-o", "window.dimensions.columns=60", "window.dimensions.lines=30", "-e", "cmus", NULL };
 static Sp scratchpads[] = {
@@ -304,5 +301,3 @@ static const Button buttons[] = {
 	{ ClkTagBar,            MODKEY,              Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,              Button3,        toggletag,      {0} },
 };
-
-
