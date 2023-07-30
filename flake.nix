@@ -1,20 +1,20 @@
 {
     description = "Custom dwm build";
 
-    inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    };
+    inputs.nixpkgs.url = "github:nixos/nixpkgs";
 
-    outputs = inputs@{ flake-parts, ... }: flake-parts.lib.mkFlake { inherit inputs; } {
-        systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
-        perSystem = { config, self', inputs', pkgs, system, ... }: {
-            packages = {
-                default = pkgs.dwm.overrideAttrs (_: {
-                    version = "main";
-                    src = ./.;
-                    patches = [ ];
-                });
-            };
+    outputs = { self, nixpkgs, ... }:
+    let
+        system = "x86_64-linux";
+        pkgs = import nixpkgs { inherit system; };
+    in {
+        packages.${system} = {
+            dwm-package = pkgs.dwm.overrideAttrs (_: {
+                version = "main";
+                src = ./.;
+                patches = [ ];
+            });
+            default = self.packages.${system}.dwm-package;
         };
     };
 }
