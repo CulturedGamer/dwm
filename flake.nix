@@ -7,12 +7,12 @@
         pkgs = import nixpkgs { inherit system; };
     in {
         packages.${system} = {
-            dwm-package = pkgs.dwm.overrideAttrs(_: {
+            dwm-custom = pkgs.dwm.overrideAttrs(_: {
                 version = "master";
                 src = ./.;
                 patches = [ ];
             });
-            default = self.packages.${system}.dwm-package;
+            default = self.packages.${system}.dwm-custom;
         };
     };
 }
