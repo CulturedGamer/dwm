@@ -9,28 +9,30 @@
     outputs = { self, nixpkgs, flake-utils, ... }:
         flake-utils.lib.eachDefaultSystem (system:
             let
+                name = "dwm";
+                package  = pkgs.${name};
                 pkgs = import nixpkgs {
                     inherit system;
                     overlays = [
                         (final: prev: {
-                            dwm-custom = prev.dwm.overrideAttrs (oldAttrs: {
+                            ${name} = prev.dwm.overrideAttrs (oldAttrs: {
                                 version = "main";
                                 src = ./.;
                             });
                         })
                     ];
                 };
-            in rec {
+            in {
                 apps = {
                     dwm = {
                         type = "app";
-                        program = "${defaultPackage}/bin/st";
+                        program = "${package}/bin/${name}";
                     };
+                    default = self.apps.dwm;
                 };
-
-                packages.dwm-custom = pkgs.dwm-custom;
-                defaultApp = apps.dwm;
-                defaultPackage = pkgs.dwm-custom;
+                packages = {
+                    default = package;
+                };
             }
         );
 }
