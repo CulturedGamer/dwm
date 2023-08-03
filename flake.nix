@@ -16,7 +16,6 @@
                         src = ./.;
                     });
                 };
-
                 overlayAttrs = {
                     inherit (config.packages)
                         dwm;
