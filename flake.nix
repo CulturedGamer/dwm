@@ -1,5 +1,5 @@
 {
-    description = "Custom dwm build";
+    description = "Basic flake for a custom dwm build";
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs";
