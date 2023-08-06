@@ -7,7 +7,7 @@ static const unsigned int gappih         = 6;  /* horiz inner gap between window
 static const unsigned int gappiv         = 6;  /* vert inner gap between windows */
 static const unsigned int gappoh         = 6;  /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov         = 6;  /* vert outer gap between windows and screen edge */
-static const int smartgaps_fact          = 0;   /* gap factor when there is only one client; 0 = no gaps, 3 = 3x outer gaps */
+static const int smartgaps_fact          = 1;   /* gap factor when there is only one client; 0 = no gaps, 3 = 3x outer gaps */
 static const int showbar                 = 1;   /* 0 means no bar */
 static const int topbar                  = 1;   /* 0 means bottom bar */
 /* Status is to be shown on: -1 (all monitors), 0 (a specific monitor by index), 'A' (active monitor) */
