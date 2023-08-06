@@ -10,7 +10,7 @@
         flake-utils.lib.eachDefaultSystem (system:
             let
                 name = "dwm";
-                package  = pkgs.${name};
+                package = pkgs.${name};
                 pkgs = import nixpkgs {
                     inherit system;
                     overlays = [
