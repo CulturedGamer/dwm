@@ -1,38 +1,25 @@
 {
-    description = "Basic flake for a custom dwm build";
+    description = "Description for the project";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs";
-        flake-utils.url = "github:numtide/flake-utils";
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     };
 
-    outputs = { self, nixpkgs, flake-utils, ... }:
-        flake-utils.lib.eachDefaultSystem (system:
-            let
-                name = "dwm";
-                package = pkgs.${name};
-                pkgs = import nixpkgs {
-                    inherit system;
-                    overlays = [
-                        (final: prev: {
-                            ${name} = prev.dwm.overrideAttrs (oldAttrs: {
-                                version = "main";
-                                src = ./.;
-                            });
-                        })
-                    ];
-                };
-            in {
-                apps = rec {
-                    dwm = {
-                        type = "app";
-                        program = "${package}/bin/${name}";
-                    };
-                    default = dwm;
-                };
+    outputs = inputs@{ flake-parts, ... }:
+        flake-parts.lib.mkFlake { inherit inputs; } {
+            imports = [ inputs.flake-parts.flakeModules.easyOverlay ];
+            systems = [ "x86_64-linux" ];
+            perSystem = { config, pkgs, system, ... }: {
                 packages = {
-                    default = package;
+                    dwm = pkgs.dwm.overrideAttrs (oldAttrs: {
+                        version = "main";
+                        src = ./.;
+                    });
                 };
-            }
-        );
+                overlayAttrs = {
+                    inherit (config.packages)
+                        dwm;
+                };
+            };
+        };
 }
