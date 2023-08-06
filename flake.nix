@@ -23,12 +23,12 @@
                     ];
                 };
             in {
-                apps = {
+                apps = rec {
                     dwm = {
                         type = "app";
                         program = "${package}/bin/${name}";
                     };
-                    default = self.apps.dwm;
+                    default = dwm;
                 };
                 packages = {
                     default = package;
